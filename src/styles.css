@@ -1,0 +1,17 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  grid-gap: 16px;
+  max-width: 300px;
+}
+
+.iconButton {
+  display: flex;
+}
+
+.iconButton input {
+  width: 100%;
+}
