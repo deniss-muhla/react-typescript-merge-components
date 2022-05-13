@@ -37,6 +37,7 @@ function isCheckButtonProps(props: ButtonProps): props is CheckButtonProps {
 
 // 02. Refactor component
 // Tip. Type guards can be moved to coresponding components
+// Tip. Wont work with HOC's
 function Button(props: ButtonProps): ReactElement {
   if (isIconButtonProps(props)) {
     // Is IconButton
