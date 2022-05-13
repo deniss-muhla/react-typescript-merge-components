@@ -3,41 +3,31 @@ import { IconButtonProps, IconButton } from "./IconButton";
 import { CheckButtonProps, CheckButton } from "./CheckButton";
 import { ReactElement } from "react";
 
-// Add stubs for alien props
-type ExBaseButtonProps = BaseButtonProps & {
-  iconPath?: undefined;
-  defaultChecked?: undefined; // Use null as prop value in CheckButton comp instead undefined for this
-};
+type ButtonProps = any;
 
-type ExIconButtonProps = IconButtonProps & {
-  defaultChecked?: undefined;
-};
+function Button(props: ButtonProps): ReactElement {
+  if (props.iconPath !== undefined) {
+    // Is IconButton
+    const { value, iconPath, onClick } = props;
 
-type ExCheckButtonProps = CheckButtonProps & {
-  iconPath?: undefined;
-};
+    return <IconButton value={value} iconPath={iconPath} onClick={onClick} />;
+  } else if (props.defaultChecked !== undefined) {
+    // Is CheckButton
+    const { value, defaultChecked, onClick } = props;
 
-// Advanced Typejitsu technique
-type ButtonProps = ExBaseButtonProps | ExIconButtonProps | ExCheckButtonProps;
+    return (
+      <CheckButton
+        value={value}
+        defaultChecked={defaultChecked}
+        onClick={onClick}
+      />
+    );
+  } else {
+    // Is BaseButton
+    const { value, onClick } = props;
 
-// ButtonProps = show as all props union
-function Button({
-  value,
-  iconPath,
-  defaultChecked,
-  onClick
-}: ButtonProps): ReactElement {
-  return defaultChecked !== undefined ? (
-    <CheckButton
-      value={value}
-      defaultChecked={defaultChecked}
-      onClick={onClick}
-    />
-  ) : iconPath !== undefined ? (
-    <IconButton value={value} iconPath={iconPath} onClick={onClick} />
-  ) : (
-    <BaseButton value={value} onClick={onClick} />
-  );
+    return <BaseButton value={value} onClick={onClick} />;
+  }
 }
 
 export { ButtonProps, Button };
